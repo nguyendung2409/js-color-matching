@@ -9,6 +9,7 @@ import {
     createTimer,
     getRandomColorPairs,
     hidePlayAgainButton,
+    setBackgroundColor,
     setTimerText,
     showPlayAgainButton,
 } from './utils.js';
@@ -51,6 +52,8 @@ function handleColorClick(liElement) {
     const secondColor = selections[1].dataset.color;
     const isMatch = firstColor === secondColor;
     if (isMatch) {
+        // set background color
+        setBackgroundColor(firstColor);
         // check win
         const isWin = getInActiveColorList().length === 0;
         if (isWin) {
@@ -73,7 +76,7 @@ function handleColorClick(liElement) {
         selections[0].classList.remove('active');
         selections[1].classList.remove('active');
         selections = [];
-        // race-condition check with handleTimerChangeFinish
+        // race-condition check with handleTimerFinish
         if (gameStatus !== GAME_STATUS.FINISHED) {
             gameStatus = GAME_STATUS.PLAYING;
         }
@@ -125,6 +128,8 @@ function resetGame() {
     initColors();
     // start new game
     startTimer();
+    // reset background color
+    setBackgroundColor('goldenrod');
 }
 
 function attachEventForPlayAgainButton() {
@@ -137,7 +142,6 @@ function startTimer() {
     timer.start();
 }
 (() => {
-    // init colors
     initColors();
     attachEventForColorList();
     attachEventForPlayAgainButton();
