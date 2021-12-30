@@ -28,6 +28,7 @@ let timer = createTimer({
 // 3. Check win logic
 // 4. Add timer
 // 5. Handle replay click
+
 function handleTimerChange(seconds) {
     // show timer text
     const fullSeconds = `0${seconds}`.slice(-2);
